@@ -10,6 +10,11 @@ router.route('/login').post(async (req, res) => {
 	if (email === 'joe.davis@gmail.com' && password === 'joe') {
 		res.status(200).send({
 			data: {
+				user: {
+					email,
+					password,
+					businesses: [],
+				},
 				token: "jwtToken",
 			},
 		});

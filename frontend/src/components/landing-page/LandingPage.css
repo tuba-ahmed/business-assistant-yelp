@@ -1,0 +1,26 @@
+.landing-page-header {
+	flex: 20%;
+	background-color: #fdebd2;
+}
+
+.landing-page-header span {
+	font-family: Guardian-EgypTT, Charter, 'Charter Bitstream', Cambria;
+	font-size: 52px;
+	font-weight: 200;
+	letter-spacing: 0.35px;
+	line-height: 120px;
+}
+
+.landing-page-container {
+	display: flex;
+	flex-direction: column;
+}
+
+.card-grid-container {
+	display: grid;
+	padding: 15px;
+	grid-template-columns: repeat(2, 1fr);
+	grid-auto-rows: 395px;
+	gap: 10px;
+	margin: 10px;
+}
