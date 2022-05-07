@@ -125,7 +125,7 @@ export default function LandingPage() {
 	const renderBusinesses = () => {
 		return (
 			<div className="card-grid-container">
-				<Card>
+				<Card className="card">
 					<CardActionArea
 						onClick={() => {
 							window.location.assign(
@@ -146,7 +146,7 @@ export default function LandingPage() {
 						</Typography>
 					</CardContent>
 				</Card>
-				<Card>
+				<Card className="card">
 					<CardActionArea
 						onClick={() => {
 							window.location.assign(

@@ -24,3 +24,8 @@
 	gap: 10px;
 	margin: 10px;
 }
+
+.card {
+	width: 450px;
+	margin: auto;
+}
