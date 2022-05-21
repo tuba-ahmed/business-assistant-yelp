@@ -6,6 +6,7 @@ import {
 	CardContent,
 	Typography,
 } from '@mui/material';
+import MenuBar from '../menubar/MenuBar';
 import sushiBarImage from '../../images/sushi-bar.jpeg';
 import texasImage from '../../images/texas-roadhouse.jpeg';
 import './LandingPage.css';
@@ -124,54 +125,61 @@ export default function LandingPage() {
 	];
 	const renderBusinesses = () => {
 		return (
-			<div className="card-grid-container">
-				<Card className="card">
-					<CardActionArea
-						onClick={() => {
-							window.location.assign(
-								`/business/${businesses[0].business_id}`,
-							);
-						}}
-					>
-						<CardMedia
-							component="img"
-							height="325"
-							image={sushiBarImage}
-							alt="Business Image"
-						></CardMedia>
-					</CardActionArea>
-					<CardContent>
-						<Typography variant="body1" nowWrap>
-							{businesses[0].name}
-						</Typography>
-					</CardContent>
-				</Card>
-				<Card className="card">
-					<CardActionArea
-						onClick={() => {
-							window.location.assign(
-								`/business/${businesses[1].business_id}`,
-							);
-						}}
-					>
-						<CardMedia
-							component="img"
-							height="325"
-							image={texasImage}
-							alt="Business Image"
-						></CardMedia>
-					</CardActionArea>
-					<CardContent>
-						<Typography variant="body1" nowWrap>
-							{businesses[1].name}
-						</Typography>
-					</CardContent>
-				</Card>
+			<div>
+				<div className="card-grid-container">
+					<Card className="card">
+						<CardActionArea
+							onClick={() => {
+								window.location.assign(
+									`/business/${businesses[0].business_id}`,
+								);
+							}}
+						>
+							<CardMedia
+								component="img"
+								height="325"
+								image={sushiBarImage}
+								alt="Business Image"
+							></CardMedia>
+						</CardActionArea>
+						<CardContent
+							sx={{
+								background: '',
+							}}
+						>
+							<Typography variant="body1" nowWrap>
+								{businesses[0].name}
+							</Typography>
+						</CardContent>
+					</Card>
+					<Card className="card">
+						<CardActionArea
+							onClick={() => {
+								window.location.assign(
+									`/business/${businesses[1].business_id}`,
+								);
+							}}
+						>
+							<CardMedia
+								component="img"
+								height="325"
+								image={texasImage}
+								alt="Business Image"
+							></CardMedia>
+						</CardActionArea>
+						<CardContent>
+							<Typography variant="body1" nowWrap>
+								{businesses[1].name}
+							</Typography>
+						</CardContent>
+					</Card>
+				</div>
 			</div>
 		);
 	};
 	return (
 		<div className="landing-page-container">
+			<MenuBar></MenuBar>
 			<div className="landing-page-header">
 				<span> Welcome 'Joe Davis' </span>
 			</div>

@@ -9,7 +9,9 @@ import {
 	CardContent,
 	Typography,
 	Rating,
+	autocompleteClasses,
 } from '@mui/material';
+import MenuBar from '../menubar/MenuBar';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import LocationOnIcon from '@mui/icons-material/LocationOn';
 import FavoriteIcon from '@mui/icons-material/Favorite';
@@ -17,6 +19,7 @@ import CategoryIcon from '@mui/icons-material/Category';
 import sushiBarImage from '../../images/sushi-bar.jpeg';
 
 import ReviewSummary from '../reviews-summary/ReviewSummary';
+import Insights from '../insights/Insights';
 import './BusinessOverview.css';
 import RatingsTrendline from '../ratings-trendline/RatingsTrendline';
 import Alerts from '../alerts/Alerts';
@@ -148,77 +151,128 @@ export default function BusinessOverview() {
 		},
 	];
 	return (
-		<div className="business-overview-container">
-			<Box sx={{ flexGrow: 1 }}>
-				<Grid container spacing={2}>
-					<Grid item xs={7}>
-						<Card>
-							<CardMedia
-								component="img"
-								height="325"
-								image={sushiBarImage}
-								alt="Business Image"
-							></CardMedia>
-							<CardContent className="card-content-container">
-								<div>
-									<Typography variant="body1" nowWrap>
-										{businesses[0].name}
-									</Typography>
-								</div>
-								<div className="card-content-ratings">
-									<StyledRating
-										name="customized-color"
-										defaultValue={2.5}
-										getLabelText={(value) =>
-											`${value} Heart${
-												value !== 1 ? 's' : ''
-											}`
-										}
-										precision={0.5}
-										icon={
-											<FavoriteIcon fontSize="inherit" />
-										}
-										emptyIcon={
-											<FavoriteBorderIcon fontSize="inherit" />
-										}
-										readOnly
-									/>
-									{businesses[0].review_count + ' Reviews'}
-								</div>
-								<div className="card-content-ratings">
-									<LocationOnIcon></LocationOnIcon>
-									<Typography variant="body1" nowWrap>
-										{businesses[0].city}
-									</Typography>
-								</div>
+		<div>
+			<MenuBar></MenuBar>
+			<div className="business-overview-container">
+				<Box sx={{ flexGrow: 1 }}>
+					<Grid container spacing={2}>
+						<Grid
+							item
+							sx={{
+								display: 'flex',
+								justifyContent: 'center',
+							}}
+							xs={6}
+						>
+							<Card
+								sx={{
+									maxWidth: 700,
+									maxHeight: 500,
+								}}
+							>
+								<CardMedia
+									component="img"
+									height="325"
+									image={sushiBarImage}
+									alt="Business Image"
+								></CardMedia>
+								<CardContent className="card-content-container">
+									<div>
+										<Typography variant="body1" nowWrap>
+											{businesses[0].name}
+										</Typography>
+									</div>
+									<div className="card-content-ratings">
+										<StyledRating
+											name="customized-color"
+											defaultValue={2.5}
+											getLabelText={(value) =>
+												`${value} Heart${
+													value !== 1 ? 's' : ''
+												}`
+											}
+											precision={0.5}
+											icon={
+												<FavoriteIcon fontSize="inherit" />
+											}
+											emptyIcon={
+												<FavoriteBorderIcon fontSize="inherit" />
+											}
+											readOnly
+										/>
+										{businesses[0].review_count +
+											' Reviews'}
+									</div>
+									<div className="card-content-ratings">
+										<LocationOnIcon></LocationOnIcon>
+										<Typography variant="body1" nowWrap>
+											{businesses[0].city}
+										</Typography>
+									</div>
 
-								<div className="card-content-ratings">
-									<CategoryIcon></CategoryIcon>
-									<Typography variant="body1" nowWrap>
-										{businesses[0].categories}
-									</Typography>
-								</div>
-							</CardContent>
-						</Card>
-					</Grid>
-					<Grid item xs={5}>
-						<ReviewSummary />
-					</Grid>
-					<Grid item xs={7}>
-						<RatingsTrendline />
-					</Grid>
-					<Grid item xs={5}>
-						<Item>Insights</Item>
-					</Grid>
+									<div className="card-content-ratings">
+										<CategoryIcon></CategoryIcon>
+										<Typography variant="body1" nowWrap>
+											{businesses[0].categories}
+										</Typography>
+									</div>
+								</CardContent>
+							</Card>
+						</Grid>
+						<Grid item xs={6}>
+							<Card
+								sx={{
+									maxWidth: 700,
+									height: 500,
+								}}
+							>
+								<CardContent>
+									<ReviewSummary />
+								</CardContent>
+							</Card>
+						</Grid>
+						<Grid item xs={6}>
+							<Card
+								sx={{
+									maxWidth: 700,
+								}}
+							>
+								<CardContent>
+									<RatingsTrendline />
+								</CardContent>
+							</Card>
+						</Grid>
+						<Grid item xs={6}>
+							<Card
+								sx={{
+									maxWidth: 700,
+								}}
+							>
+								<CardContent>
+									<Insights></Insights>
+								</CardContent>
+							</Card>
+						</Grid>
 
-					<Grid item container spacing={2}>
-						<Grid item xs={2} />
-						<Grid item xs={8}>
-							<Alerts />
+						<Grid item container spacing={2}>
+							<Grid item xs={2} />
+							<Grid item xs={8}>
+								<Card
+									sx={
+										{
+											//maxWidth: 700,
+										}
+									}
+								>
+									<CardContent>
+										<Alerts />
+									</CardContent>
+								</Card>
+							</Grid>
 						</Grid>
 					</Grid>
-				</Grid>
-			</Box>
+				</Box>
+			</div>
 		</div>
 	);
 }

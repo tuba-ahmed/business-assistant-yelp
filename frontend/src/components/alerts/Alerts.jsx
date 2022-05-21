@@ -14,7 +14,7 @@ export default function Alerts() {
 			subheader={
 				<ListSubheader component="div">
 					<Typography
-						sx={{ display: 'inline' }}
+						sx={{ display: 'inline', fontWeight: '700' }}
 						component="span"
 						variant="h6"
 						color="text.primary"
