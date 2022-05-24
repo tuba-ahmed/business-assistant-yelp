@@ -33,7 +33,7 @@ function TrendDetails({ title, value, data, change }) {
 	);
 }
 
-export default function SummarySection() {
+export default function SummarySection({ summary }) {
 	return (
 		<div className="summary-section">
 			<Stack spacing={5} direction="row">
@@ -42,14 +42,14 @@ export default function SummarySection() {
 						<Stack direction="row" spacing={5}>
 							<TrendDetails
 								title="Positive"
-								value="2%"
-								change={8}
+								value={`${summary.positive_metric}%`}
+								change={summary.positive_change}
 								data={data1}
 							/>
 							<TrendDetails
 								title="Negative"
-								value="19%"
-								change={-11}
+								value={`${summary.negative_metric}%`}
+								change={summary.negative_change}
 								data={data2}
 							/>
 						</Stack>
@@ -63,12 +63,12 @@ export default function SummarySection() {
 								Engagement
 							</Typography>
 							<Typography color="error" variant="h4">
-								19%{' '}
+								{`${summary.engagement}% `}
 								<WarningIcon
 									sx={{ position: 'relative', bottom: -3 }}
 								/>
 							</Typography>
-							<Typography>4% below forecast</Typography>
+							<Typography>Below forecast</Typography>
 							<Sparkline
 								sx={{ mt: 2 }}
 								data={data2}

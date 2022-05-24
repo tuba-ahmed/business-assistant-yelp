@@ -41,7 +41,7 @@ function a11yProps(index) {
 	};
 }
 
-export default function ReviewSummary() {
+export default function ReviewSummary({ summary }) {
 	const [value, setValue] = React.useState(0);
 
 	const handleChange = (event, newValue) => {
@@ -68,7 +68,7 @@ export default function ReviewSummary() {
 				</Tabs>
 			</AppBar>
 			<TabPanel value={value} index={0}>
-				<SummarySection></SummarySection>
+				<SummarySection summary={summary}></SummarySection>
 			</TabPanel>
 			<TabPanel value={value} index={1}>
 				Positive
