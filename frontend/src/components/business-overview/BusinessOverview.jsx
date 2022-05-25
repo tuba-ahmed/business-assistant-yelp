@@ -19,6 +19,7 @@ import LocationOnIcon from '@mui/icons-material/LocationOn';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import CategoryIcon from '@mui/icons-material/Category';
 import sushiBarImage from '../../images/sushi-bar.jpeg';
+import oskarImage from '../../images/oskar-brewery.jpeg';
 
 import ReviewSummary from '../reviews-summary/ReviewSummary';
 import Insights from '../insights/Insights';
@@ -202,7 +203,7 @@ export default function BusinessOverview(props) {
 									<CardMedia
 										component="img"
 										height="325"
-										image={sushiBarImage}
+										image={oskarImage}
 										alt="Business Image"
 									></CardMedia>
 									<CardContent className="card-content-container">
@@ -229,7 +230,7 @@ export default function BusinessOverview(props) {
 												}
 												readOnly
 											/>
-											{(business.review_count || 346) +
+											{(business.review_count || 86) +
 												' Reviews'}
 										</div>
 										<div className="card-content-ratings">

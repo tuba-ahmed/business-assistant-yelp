@@ -8,13 +8,14 @@ import {
 } from '@mui/material';
 import MenuBar from '../menubar/MenuBar';
 import sushiBarImage from '../../images/sushi-bar.jpeg';
+import oskarImage from '../../images/oskar-brewery.jpeg';
 import texasImage from '../../images/texas-roadhouse.jpeg';
 import './LandingPage.css';
 
 export default function LandingPage() {
 	const businesses = [
 		{
-			business_id: 'NRPemqVb4qpWFF0Avq_6OQ',
+			business_id: '6iYb2HFDywm3zjuRg0shjw',
 			name: 'Eurasia Sushi Bar & Seafood',
 			address: '7101 W Hwy 71, Ste C-13',
 			city: 'Austin',
@@ -138,7 +139,7 @@ export default function LandingPage() {
 							<CardMedia
 								component="img"
 								height="325"
-								image={sushiBarImage}
+								image={oskarImage}
 								alt="Business Image"
 							></CardMedia>
 						</CardActionArea>
