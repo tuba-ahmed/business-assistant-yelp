@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { styled } from '@mui/material/styles';
 import {
 	Box,
@@ -9,14 +9,17 @@ import {
 	CardContent,
 	Typography,
 	Rating,
-	autocompleteClasses,
+	Button,
 } from '@mui/material';
+import { useParams } from 'react-router-dom';
+import PrintOutlinedIcon from '@mui/icons-material/PrintOutlined';
 import MenuBar from '../menubar/MenuBar';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import LocationOnIcon from '@mui/icons-material/LocationOn';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import CategoryIcon from '@mui/icons-material/Category';
 import sushiBarImage from '../../images/sushi-bar.jpeg';
+import oskarImage from '../../images/oskar-brewery.jpeg';
 
 import ReviewSummary from '../reviews-summary/ReviewSummary';
 import Insights from '../insights/Insights';
@@ -38,7 +41,33 @@ const Item = styled(Paper)(({ theme }) => ({
 	color: theme.palette.text.secondary,
 }));
 
-export default function BusinessOverview() {
+export default function BusinessOverview(props) {
+	const [business, setBusiness] = useState();
+	const { id } = useParams();
+	useEffect(() => {
+		(async () => {
+			try {
+				const request = await fetch(
+					`http://localhost:3000/business/get-business-overview/${id}`,
+					{
+						method: 'GET',
+						mode: 'cors',
+						cache: 'no-cache',
+						credentials: 'same-origin',
+						headers: {
+							'Content-Type': 'application/json',
+						},
+						redirect: 'follow',
+						referrerPolicy: 'no-referrer',
+					},
+				);
+				const resp = await request.json();
+				setBusiness(resp.data);
+			} catch (err) {
+				console.error(err);
+			}
+		})();
+	}, []);
 	const businesses = [
 		{
 			business_id: 'NRPemqVb4qpWFF0Avq_6OQ',
@@ -153,125 +182,157 @@ export default function BusinessOverview() {
 	return (
 		<div>
 			<MenuBar></MenuBar>
-			<div className="business-overview-container">
-				<Box sx={{ flexGrow: 1 }}>
-					<Grid container spacing={2}>
-						<Grid
-							item
-							sx={{
-								display: 'flex',
-								justifyContent: 'center',
-							}}
-							xs={6}
-						>
-							<Card
+			{business && (
+				<div className="business-overview-container">
+					<Box sx={{ flexGrow: 1 }}>
+						<Grid container spacing={2}>
+							<Grid
+								item
 								sx={{
-									maxWidth: 700,
-									maxHeight: 500,
+									display: 'flex',
+									justifyContent: 'center',
 								}}
+								xs={6}
 							>
-								<CardMedia
-									component="img"
-									height="325"
-									image={sushiBarImage}
-									alt="Business Image"
-								></CardMedia>
-								<CardContent className="card-content-container">
-									<div>
-										<Typography variant="body1" nowWrap>
-											{businesses[0].name}
-										</Typography>
-									</div>
-									<div className="card-content-ratings">
-										<StyledRating
-											name="customized-color"
-											defaultValue={2.5}
-											getLabelText={(value) =>
-												`${value} Heart${
-													value !== 1 ? 's' : ''
-												}`
-											}
-											precision={0.5}
-											icon={
-												<FavoriteIcon fontSize="inherit" />
-											}
-											emptyIcon={
-												<FavoriteBorderIcon fontSize="inherit" />
-											}
-											readOnly
-										/>
-										{businesses[0].review_count +
-											' Reviews'}
-									</div>
-									<div className="card-content-ratings">
-										<LocationOnIcon></LocationOnIcon>
-										<Typography variant="body1" nowWrap>
-											{businesses[0].city}
-										</Typography>
-									</div>
-
-									<div className="card-content-ratings">
-										<CategoryIcon></CategoryIcon>
-										<Typography variant="body1" nowWrap>
-											{businesses[0].categories}
-										</Typography>
-									</div>
-								</CardContent>
-							</Card>
-						</Grid>
-						<Grid item xs={6}>
-							<Card
-								sx={{
-									maxWidth: 700,
-									height: 500,
-								}}
-							>
-								<CardContent>
-									<ReviewSummary />
-								</CardContent>
-							</Card>
-						</Grid>
-						<Grid item xs={6}>
-							<Card
-								sx={{
-									maxWidth: 700,
-								}}
-							>
-								<CardContent>
-									<RatingsTrendline />
-								</CardContent>
-							</Card>
-						</Grid>
-						<Grid item xs={6}>
-							<Card
-								sx={{
-									maxWidth: 700,
-								}}
-							>
-								<CardContent>
-									<Insights></Insights>
-								</CardContent>
-							</Card>
-						</Grid>
-
-						<Grid item container spacing={2}>
-							<Grid item xs={2} />
-							<Grid item xs={8}>
 								<Card
-									sx={
-										{
-											//maxWidth: 700,
-										}
-									}
+									sx={{
+										maxWidth: 700,
+										maxHeight: 500,
+									}}
 								>
-									<CardContent>
-										<Alerts />
+									<CardMedia
+										component="img"
+										height="325"
+										image={oskarImage}
+										alt="Business Image"
+									></CardMedia>
+									<CardContent className="card-content-container">
+										<div>
+											<Typography variant="body1" nowWrap>
+												{business.name}
+											</Typography>
+										</div>
+										<div className="card-content-ratings">
+											<StyledRating
+												name="customized-color"
+												defaultValue={2.5}
+												getLabelText={(value) =>
+													`${value} Heart${
+														value !== 1 ? 's' : ''
+													}`
+												}
+												precision={0.5}
+												icon={
+													<FavoriteIcon fontSize="inherit" />
+												}
+												emptyIcon={
+													<FavoriteBorderIcon fontSize="inherit" />
+												}
+												readOnly
+											/>
+											{(business.review_count || 86) +
+												' Reviews'}
+										</div>
+										<div className="card-content-ratings">
+											<LocationOnIcon></LocationOnIcon>
+											<Typography variant="body1" nowWrap>
+												{business.city}
+											</Typography>
+										</div>
+
+										<div className="card-content-ratings">
+											<CategoryIcon></CategoryIcon>
+											<Typography variant="body1" nowWrap>
+												{business.categories}
+											</Typography>
+										</div>
 									</CardContent>
 								</Card>
 							</Grid>
+							<Grid item xs={6}>
+								<Card
+									sx={{
+										maxWidth: 700,
+										height: 500,
+									}}
+								>
+									<CardContent>
+										<ReviewSummary
+											summary={business.summary}
+										/>
+									</CardContent>
+								</Card>
+							</Grid>
+							<Grid item xs={6}>
+								<Card
+									sx={{
+										maxWidth: 700,
+									}}
+								>
+									<CardContent>
+										<RatingsTrendline
+											competitorTrend={
+												business.competitor_trend
+											}
+											reviewTrend={business.review_trend}
+										/>
+									</CardContent>
+								</Card>
+							</Grid>
+							<Grid item xs={6}>
+								<Card
+									sx={{
+										maxWidth: 700,
+									}}
+								>
+									<CardContent>
+										<Insights
+											insights={business.insights}
+										/>
+									</CardContent>
+								</Card>
+							</Grid>
+
+							<Grid item container spacing={2}>
+								<Grid item xs={2} />
+								<Grid item xs={8}>
+									<Card
+										sx={
+											{
+												//maxWidth: 700,
+											}
+										}
+									>
+										<CardContent>
+											<Alerts alerts={business.alerts} />
+										</CardContent>
+									</Card>
+								</Grid>
+							</Grid>
 						</Grid>
-					</Grid>
-				</Box>
+					</Box>
+				</div>
+			)}
+
+			<div className="print-button-container">
+				<Button
+					onClick={() => {
+						window.print();
+					}}
+					sx={{
+						backgroundColor: '#222222',
+						borderRadius: '24px',
+						fontSize: '14px',
+						fontWeight: 'bold',
+						lineHeight: 1.6,
+						fontFamily:
+							'"Graphik Webfont",-apple-system,"Helvetica Neue","Droid Sans",Arial,sans-serif',
+					}}
+					variant="contained"
+					startIcon={<PrintOutlinedIcon />}
+				>
+					Print
+				</Button>
 			</div>
 		</div>
 	);

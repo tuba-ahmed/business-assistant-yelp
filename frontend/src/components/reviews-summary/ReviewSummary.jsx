@@ -6,8 +6,10 @@ import Tab from '@mui/material/Tab';
 import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
 
+import './ReviewSummary.css';
 import SummarySection from '../summary-section/SummarySection';
-import wordCloud from '../../word-clouds.png';
+import positive from '../../images/positive.png';
+import negative from '../../images/negative.png';
 function TabPanel(props) {
 	const { children, value, index, ...other } = props;
 
@@ -41,7 +43,7 @@ function a11yProps(index) {
 	};
 }
 
-export default function ReviewSummary() {
+export default function ReviewSummary({ summary }) {
 	const [value, setValue] = React.useState(0);
 
 	const handleChange = (event, newValue) => {
@@ -68,15 +70,17 @@ export default function ReviewSummary() {
 				</Tabs>
 			</AppBar>
 			<TabPanel value={value} index={0}>
-				<SummarySection></SummarySection>
+				<SummarySection summary={summary}></SummarySection>
 			</TabPanel>
 			<TabPanel value={value} index={1}>
-				Positive
-				<br />
-				<img src={wordCloud} />
+				<div className="image-container">
+					<img src={positive} />
+				</div>
 			</TabPanel>
 			<TabPanel value={value} index={2}>
-				Negative
+				<div className="image-container">
+					<img src={negative} />
+				</div>
 			</TabPanel>
 		</Box>
 	);

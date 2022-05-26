@@ -10,7 +10,28 @@ import {
 import WarningAmberIcon from '@mui/icons-material/WarningAmber';
 import TipsAndUpdatesIcon from '@mui/icons-material/TipsAndUpdates';
 
-export default function Insights() {
+export default function Insights({ insights }) {
+	const getListItems = () => {
+		const content = [];
+		insights.forEach((insight) => {
+			content.push(
+				<div>
+					<ListItem alignItems="flex-start">
+						<ListItemIcon>
+							{insight.insight_type === 'action_item' ? (
+								<TipsAndUpdatesIcon />
+							) : (
+								<WarningAmberIcon />
+							)}
+						</ListItemIcon>
+						<ListItemText primary={insight.insight_text} />
+					</ListItem>
+					<Divider variant="inset" component="li" />
+				</div>,
+			);
+		});
+		return content;
+	};
 	return (
 		<List sx={{ margin: '20px' }}>
 			<ListSubheader
@@ -24,49 +45,7 @@ export default function Insights() {
 			>
 				Insights
 			</ListSubheader>
-			<ListItem alignItems="flex-start">
-				<ListItemIcon>
-					<TipsAndUpdatesIcon />
-				</ListItemIcon>
-				<ListItemText
-					primary="Summer BBQ"
-					// secondary={
-					// 	<React.Fragment>
-					// 		<Typography
-					// 			sx={{ display: 'inline' }}
-					// 			component="span"
-					// 			variant="body2"
-					// 			color="text.primary"
-					// 		>
-					// 			to Scott, Alex, Jennifer
-					// 		</Typography>
-					// 		{" — Wish I could come, but I'm out of town this…"}
-					// 	</React.Fragment>
-					// }
-				/>
-			</ListItem>
-			<Divider variant="inset" component="li" />
-			<ListItem alignItems="flex-start">
-				<ListItemIcon>
-					<WarningAmberIcon />
-				</ListItemIcon>
-				<ListItemText
-					primary="Summer BBQ"
-					// secondary={
-					// 	<React.Fragment>
-					// 		<Typography
-					// 			sx={{ display: 'inline' }}
-					// 			component="span"
-					// 			variant="body2"
-					// 			color="text.primary"
-					// 		>
-					// 			to Scott, Alex, Jennifer
-					// 		</Typography>
-					// 		{" — Wish I could come, but I'm out of town this…"}
-					// 	</React.Fragment>
-					// }
-				/>
-			</ListItem>
+			{getListItems()}
 		</List>
 	);
 }
